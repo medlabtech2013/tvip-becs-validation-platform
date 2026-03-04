@@ -1,0 +1,8 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+.env
+validation_reports/*.pdf
+validation_reports/*.png
+validation_reports/*.json

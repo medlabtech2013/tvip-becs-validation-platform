@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>TVIP Validation Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{
+font-family: Arial;
+background:#f5f6fa;
+padding:40px;
+}
+
+.card{
+background:white;
+padding:20px;
+margin:20px;
+border-radius:8px;
+box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+
+h1{
+color:#2c3e50;
+}
+
+.stat{
+font-size:28px;
+font-weight:bold;
+color:#2980b9;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Transfusion Validation Intelligence Platform</h1>
+
+<button onclick="runValidation()" style="padding:10px 20px; margin-bottom:20px;">
+Run Validation Pack
+</button>
+
+<button onclick="downloadReport()" style="padding:10px 20px; margin-left:10px;">
+Download Master Report
+</button>
+
+<div class="card">
+Total Validation Runs
+<div id="runs" class="stat">0</div>
+</div>
+
+<div class="card">
+Pass Results
+<div id="pass" class="stat">0</div>
+</div>
+
+<div class="card">
+Fail Results
+<div id="fail" class="stat">0</div>
+</div>
+
+<div class="card">
+<h3>Risk Distribution</h3>
+<canvas id="riskChart"></canvas>
+</div>
+
+<div class="card">
+<h3>Validation Runs</h3>
+
+<table border="1" width="100%" id="runsTable">
+<thead>
+<tr>
+<th>Run ID</th>
+<th>Date</th>
+<th>Donor</th>
+<th>Recipient</th>
+<th>Risk</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody></tbody>
+
+</table>
+
+</div>
+
+<script>
+
+async function loadStats(){
+
+let response = await fetch("/dashboard-data")
+let data = await response.json()
+
+document.getElementById("runs").innerText = data.total_runs
+document.getElementById("pass").innerText = data.pass
+document.getElementById("fail").innerText = data.fail
+
+// Populate table
+const table = document.querySelector("#runsTable tbody")
+table.innerHTML = ""
+
+data.runs.forEach(run => {
+
+let row = document.createElement("tr")
+
+row.innerHTML =
+"<td>" + run.id + "</td>" +
+"<td>" + run.date + "</td>" +
+"<td>" + run.donor + "</td>" +
+"<td>" + run.recipient + "</td>" +
+"<td>" + run.risk + "</td>" +
+"<td>" + run.status + "</td>"
+
+table.appendChild(row)
+
+})
+
+// Render risk chart
+const ctx = document.getElementById('riskChart')
+
+new Chart(ctx, {
+type: 'bar',
+data: {
+labels: ["LOW","MODERATE","HIGH","CRITICAL"],
+datasets: [{
+label: "Risk Distribution",
+data: [
+data.low,
+data.moderate,
+data.high,
+data.critical
+]
+}]
+}
+})
+
+}
+
+loadStats()
+
+async function runValidation(){
+
+const response = await fetch("/run-validation-pack", {
+method: "POST"
+})
+
+await response.json()
+
+alert("Validation Pack Complete")
+
+location.reload()
+
+}
+
+function downloadReport(){
+
+window.open("/master-report", "_blank")
+
+}
+
+</script>
+
+</body>
+
+</html>

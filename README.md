@@ -1,4 +1,4 @@
-![TVIP Banner](screenshots/tvip_banner.png)
+![TVIP Dashboard](screenshots/dashboard.png)
 
 # TVIP – Transfusion Validation Intelligence Platform
 

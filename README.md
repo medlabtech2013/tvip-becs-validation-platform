@@ -1,5 +1,3 @@
-![TVIP Dashboard](screenshots/dashboard.png)
-
 # TVIP – Transfusion Validation Intelligence Platform
 
 A clinical validation simulation platform designed to demonstrate automated validation workflows for **Blood Bank / BECS systems** used in hospital LIS and EHR implementations.

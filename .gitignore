@@ -1,8 +1,12 @@
-.venv/
 venv/
+.venv/
 __pycache__/
 *.pyc
+
+temp_qr.png
+verification_qr.png
+
+validation_reports/
+validation_audit/
+
 .env
-validation_reports/*.pdf
-validation_reports/*.png
-validation_reports/*.json

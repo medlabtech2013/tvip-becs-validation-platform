@@ -1,3 +1,7 @@
+![TVIP Banner](screenshots/tvip_banner.png)
+
+# TVIP – Transfusion Validation Intelligence Platform
+
 # Transfusion Validation Intelligence Platform (TVIP)
 
 A clinical validation simulation platform designed to demonstrate automated validation workflows for Blood Bank / BECS systems used during hospital LIS and EHR implementations.
@@ -17,6 +21,46 @@ The Transfusion Validation Intelligence Platform (TVIP) simulates validation wor
 The platform validates RBC compatibility scenarios, evaluates risk, and produces validation evidence reports.
 
 ---
+
+## System Architecture
+
+Laboratory Information System (LIS)
+↓
+Compatibility Engine
+↓
+Validation Rule Processor
+↓
+Risk Scoring Analytics
+↓
+Clinical Certification Output
+
+
+### Components
+
+• **FastAPI Backend** – Validation engine and API endpoints  
+• **Chart.js Frontend** – Risk analytics and dashboard visualizations  
+• **Validation Engine** – Blood compatibility rule processing  
+• **Audit Log System** – Tracks validation events and outcomes  
+• **QR Certificate Verification** – Digital validation verification
+
+---
+
+## Technology Stack
+
+Backend
+- Python
+- FastAPI
+
+Frontend
+- HTML
+- JavaScript
+- Chart.js
+
+Compliance Context
+- AABB Blood Bank Standards
+- CLIA Laboratory Compliance
+- FDA 21 CFR Part 11
+- Joint Commission Accreditation
 
 ## Key Features
 

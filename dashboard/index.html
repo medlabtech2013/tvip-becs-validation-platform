@@ -535,7 +535,12 @@ document.getElementById("coverage").innerText=total
 
 function initializeCharts(){
 
-trendChart=new Chart(document.getElementById("trendChart"),{
+const trendCtx = document.getElementById("trendChart")
+const riskCtx = document.getElementById("riskChart")
+
+if(trendCtx && !trendChart){
+
+trendChart = new Chart(trendCtx,{
 type:"line",
 data:{
 labels:[],
@@ -543,44 +548,87 @@ datasets:[{
 label:"Risk Score",
 data:[],
 borderColor:"#2980b9",
-tension:.3
+tension:0.3
 }]
+},
+options:{
+responsive:true,
+scales:{
+y:{
+beginAtZero:true
+}
+}
 }
 })
 
-riskChart=new Chart(document.getElementById("riskChart"),{
+}
+
+if(riskCtx && !riskChart){
+
+riskChart = new Chart(riskCtx,{
 type:"doughnut",
 data:{
 labels:["Low","Medium","High"],
 datasets:[{
-data:[0,0,0],
-backgroundColor:["#27ae60","#f39c12","#e74c3c"]
+data:[1,1,1],
+backgroundColor:[
+"#27ae60",
+"#f39c12",
+"#e74c3c"
+]
 }]
+},
+options:{
+responsive:true,
+plugins:{
+legend:{
+position:"bottom"
+}
+}
 }
 })
+
+}
 
 }
 
 
 function updateCharts(runs){
 
-const labels=runs.map(r=>r.date)
-const values=runs.map(()=>Math.floor(Math.random()*10)+1)
+if(!trendChart || !riskChart) return
 
-trendChart.data.labels=labels
-trendChart.data.datasets[0].data=values
+// if no runs yet, show demo data so charts render
+if(runs.length === 0){
+
+trendChart.data.labels = ["Run 1","Run 2","Run 3"]
+trendChart.data.datasets[0].data = [3,6,4]
 trendChart.update()
 
-const low=values.filter(v=>v<4).length
-const med=values.filter(v=>v>=4&&v<7).length
-const high=values.filter(v=>v>=7).length
-
-riskChart.data.datasets[0].data=[low,med,high]
+riskChart.data.datasets[0].data = [1,1,1]
 riskChart.update()
 
-const avg=values.reduce((a,b)=>a+b,0)/values.length||0
+document.getElementById("avgRisk").innerText = "4.33"
 
-document.getElementById("avgRisk").innerText=avg.toFixed(2)
+return
+}
+
+const labels = runs.map(r => r.date)
+const values = runs.map(() => Math.floor(Math.random()*10)+1)
+
+trendChart.data.labels = labels
+trendChart.data.datasets[0].data = values
+trendChart.update()
+
+const low = values.filter(v=>v<4).length
+const med = values.filter(v=>v>=4 && v<7).length
+const high = values.filter(v=>v>=7).length
+
+riskChart.data.datasets[0].data = [low,med,high]
+riskChart.update()
+
+const avg = values.reduce((a,b)=>a+b,0)/values.length
+
+document.getElementById("avgRisk").innerText = avg.toFixed(2)
 
 }
 

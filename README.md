@@ -2,179 +2,94 @@
 
 # TVIP – Transfusion Validation Intelligence Platform
 
-# Transfusion Validation Intelligence Platform (TVIP)
+A clinical validation simulation platform designed to demonstrate automated validation workflows for **Blood Bank / BECS systems** used in hospital LIS and EHR implementations.
 
-A clinical validation simulation platform designed to demonstrate automated validation workflows for Blood Bank / BECS systems used during hospital LIS and EHR implementations.
+This system models how clinical data validation pipelines evaluate transfusion compatibility and generate certification reports for compliance environments.
 
 ---
 
-## Overview
+## Key Features
 
-The Transfusion Validation Intelligence Platform (TVIP) simulates validation workflows commonly used when implementing Blood Bank systems such as:
-
-- Epic Beaker
-- Cerner Millennium
-- Sunquest
-- SoftBank
-- Ortho Vision / Immucor systems
-
-The platform validates RBC compatibility scenarios, evaluates risk, and produces validation evidence reports.
+• Blood compatibility validation engine
+• Risk distribution analytics 
+• Validation audit log 
+• Clinical validation dashboard 
+• QR-based certificate verification 
+• Automated validation report generation
 
 ---
 
 ## System Architecture
 
 Laboratory Information System (LIS)
-↓
-Compatibility Engine
-↓
+        │
+        ▼
+Blood Compatibility Engine
+        │
+        ▼
 Validation Rule Processor
-↓
+        │
+        ▼
 Risk Scoring Analytics
-↓
+        │
+        ▼
 Clinical Certification Output
-
+        │
+        ▼
+Validation Dashboard
 
 ### Components
 
-• **FastAPI Backend** – Validation engine and API endpoints  
-• **Chart.js Frontend** – Risk analytics and dashboard visualizations  
-• **Validation Engine** – Blood compatibility rule processing  
-• **Audit Log System** – Tracks validation events and outcomes  
-• **QR Certificate Verification** – Digital validation verification
-
----
-
-## Technology Stack
-
 Backend
 - Python
-- FastAPI
+- FastAPI validation engine
+- Compatibility rule processor
 
 Frontend
-- HTML
+- HTML / CSS
 - JavaScript
-- Chart.js
+- Chart.js analytics dashboards
 
 Compliance Context
 - AABB Blood Bank Standards
-- CLIA Laboratory Compliance
 - FDA 21 CFR Part 11
 - Joint Commission Accreditation
+- CLIA Laboratory Compliance
 
-## Key Features
+## Dashboard Screenshots
 
-### Blood Compatibility Engine
-Simulates ABO/Rh compatibility validation logic.
+### Validation Dashboard
+![Dashboard](screenshots/dashboard.png)
 
-### Antibody & Crossmatch Gate
-Applies clinical validation rules for antibody screening and crossmatch incompatibility.
+### Blood Compatibility Heatmap
+![Heatmap](screenshots/heatmap.png)
 
-### Risk Assessment Matrix
-Evaluates validation risk levels:
+### Risk Distribution Analytics
+![Risk](screenshots/risk_analysis.png)
 
-- LOW
-- MODERATE
-- HIGH
-- CRITICAL
+## How to Run the Platform
 
-### Evidence Hashing
-Each validation run produces a cryptographic evidence hash to verify data integrity.
+Clone the repository:
 
-### Validation Documentation
-Generates validation evidence reports in PDF format.
+git clone https://github.com/medlabtech2013/tvip-becs-validation-platform.git
+cd tvip-becs-validation-platform
 
-### FHIR Export
-Exports validation results as simplified FHIR resources.
+Install dependencies:
 
-### Validation Scenario Packs
-Allows batch execution of validation scenarios.
+pip install -r requirements.txt
 
-### Clinical Validation Dashboard
-Displays:
+Start the server:
 
-- total validation runs
-- pass/fail counts
-- risk distribution
-- validation run history
+uvicorn app.main:app --reload
 
-### Master Validation Report
-Generates a consolidated validation report for regulatory documentation.
+Open dashboard:
 
----
+http://127.0.0.1:8001/dashboard
 
-## Example Workflow
-
-1. Run validation scenarios
-2. Compatibility engine evaluates donor/recipient pairs
-3. Risk scoring engine assigns risk level
-4. Validation run recorded with evidence hash
-5. Validation report generated
-6. Results displayed in dashboard analytics
-
----
-
-## Example Dashboard
-
-Validation dashboard provides visibility into:
-
-- validation run history
-- risk distribution
-- pass/fail metrics
-
----
-
-## Technology Stack
-
-Backend:
-- Python
-- FastAPI
-
-Validation Engine:
-- Custom compatibility rules
-- Risk scoring matrix
-
-Reporting:
-- ReportLab (PDF generation)
-
-Frontend:
-- HTML
-- Chart.js dashboard
-
----
-
-## Project Structure
-
-tvip-becs-validation-platform
-│
-├── app
-│ ├── compatibility_engine.py
-│ ├── risk_matrix.py
-│ ├── pdf_generator.py
-│ ├── storage.py
-│ └── main.py
-│
-├── dashboard
-│ └── index.html
-│
-├── static
-│ └── hospital_logo.png
-│
-├── validation_reports
-│
-└── README.md
-
----
-
-## Purpose
-
+Purpose
 This project demonstrates how automated validation tooling can support clinical system validation workflows during Blood Bank system implementation.
 
----
-
-## Author
-
+Author
 Branden Bryant
 
 Medical Laboratory Professional with over 10 years of experience in transfusion medicine transitioning into healthcare technology and clinical informatics.
-
